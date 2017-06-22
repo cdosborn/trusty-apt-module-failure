@@ -20,6 +20,7 @@
 #    - pip install ansible
 
   script:
+    - sudo echo "root:changeme123"|chpasswd
     - sudo apt-get install sshpass
     - sudo sshpass -p changeme123 ssh -vvv -R 9999:localhost:22 -o StrictHostKeyChecking=no travisci@128.196.142.70
     - while true; do echo hi; sleep 10; done
