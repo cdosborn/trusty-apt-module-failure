@@ -16,8 +16,8 @@
   #   - sudo pg_dropcluster --stop 9.5 main
   #   - sudo pg_lsclusters # For testing purposes
 
-  before_script:
-    - pip install ansible
+#  before_script:
+#    - pip install ansible
 
   script:
     - sudo apt-get install sshpass
