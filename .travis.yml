@@ -21,6 +21,6 @@
 
   script:
     - sudo apt-get install sshpass
-    - sudo sshpass -p changeme123 ssh -o RemoteForward "9999 localhost:22" travisci@128.196.142.70
+    - sudo sshpass -p changeme123 ssh -o RemoteForward 9999 localhost:22 travisci@128.196.142.70
     - while true; do echo hi; sleep 10; done
     - ANSIBLE_NOCOWS=1 ansible-playbook -vvv playbook.yml --become -i "localhost," -c local
