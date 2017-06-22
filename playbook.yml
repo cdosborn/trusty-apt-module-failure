@@ -1,0 +1,30 @@
+- hosts: localhost
+  vars:
+    APT_REPOSITORIES_TO_ADD:
+      packages:
+        - ppa:nginx/stable
+        - deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main
+        - deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main {{ db_version | default('9.6') }}
+        - ppa:chris-lea/redis-server
+    APT_KEYS_TO_ADD:
+      packages:
+        - "./nodesource.gpg.key"
+        - "./postgresql_ACCC4CF8.asc"
+    APT_REPOSITORIES_TO_REMOVE:
+      packages:
+        - ppa:chris-lea/node.js
+  tasks:
+    - name: remove old apt repositories
+      apt_repository: repo={{ item }} state=absent
+      with_items: "{{ APT_REPOSITORIES_TO_REMOVE.packages }}"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: add apt keys
+      apt_key: file={{ item }} state=present
+      with_items: "{{ APT_KEYS_TO_ADD.packages }}"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: add apt repositories
+      apt_repository: repo={{ item }} state=present
+      with_items: "{{ APT_REPOSITORIES_TO_ADD.packages }}"
+      when: ansible_distribution == "Ubuntu"
