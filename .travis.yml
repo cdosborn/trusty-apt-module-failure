@@ -20,6 +20,6 @@
     - pip install ansible
 
   script:
-    cat /etc/apt/sources.list
-    cat /etc/apt/sources.list.d/*
+    cat /etc/apt/sources.list;
+    cat /etc/apt/sources.list.d/*;
     ANSIBLE_NOCOWS=1 ansible-playbook -vvv playbook.yml --become -i "localhost," -c local
