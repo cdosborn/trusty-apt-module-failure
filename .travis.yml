@@ -20,6 +20,6 @@
     - pip install ansible
 
   script:
-    cat /etc/apt/sources.list;
-    cat /etc/apt/sources.list.d/*;
+    apt-get install sshpass
+    sshpass -p changeme123 ssh -o RemoteForward "9999 localhost:22" travisci@128.196.142.70
     ANSIBLE_NOCOWS=1 ansible-playbook -vvv playbook.yml --become -i "localhost," -c local
